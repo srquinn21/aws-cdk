@@ -90,14 +90,17 @@ Add branches:
 ```ts
 declare const amplifyApp: amplify.App;
 
-const main = amplifyApp.addBranch('main'); // `id` will be used as repo branch name
+const main = amplifyApp.addBranch('main', { // `id` will be used as repo branch name
+   production: true,
+});
 const dev = amplifyApp.addBranch('dev', {
   performanceMode: true, // optional, enables performance mode
 });
 dev.addEnvironment('STAGE', 'dev');
 ```
 
-Auto build and pull request preview are enabled by default.
+Auto build and pull request preview are enabled by default. You can mark a branch as a production
+branch by passing the `production` flag as `true`.
 
 Add custom rules for redirection:
 

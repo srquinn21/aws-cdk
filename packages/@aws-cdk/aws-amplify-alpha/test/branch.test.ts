@@ -142,3 +142,15 @@ test('with performance mode', () => {
     EnablePerformanceMode: true,
   });
 });
+
+test('with production flag', () => {
+  // WHEN
+  app.addBranch('main', {
+    production: true,
+  });
+
+  // Then
+  Template.fromStack(stack).hasResourceProperties('AWS::Amplify::Branch', {
+    Stage: 'PRODUCTION',
+  });
+});

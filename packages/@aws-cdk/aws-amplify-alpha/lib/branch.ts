@@ -99,13 +99,6 @@ export interface BranchOptions {
   readonly pullRequestEnvironmentName?: string;
 
   /**
-   * Stage for the branch
-   *
-   * @default - no stage
-   */
-  readonly stage?: string;
-
-  /**
    * Asset for deployment.
    *
    * The Amplify app must not have a sourceCodeProvider configured as this resource uses Amplify's
@@ -125,6 +118,16 @@ export interface BranchOptions {
    * @default false
    */
   readonly performanceMode?: boolean;
+
+  /**
+   * Mark branch as production
+   *
+   * Marking as a production branch allows the system to know which branch is the primary branch used
+   * to serve end user traffic.
+   *
+   * @default false
+   */
+  readonly production?: boolean;
 }
 
 /**
@@ -178,8 +181,8 @@ export class Branch extends Resource implements IBranch {
       enablePullRequestPreview: props.pullRequestPreview ?? true,
       environmentVariables: Lazy.any({ produce: () => renderEnvironmentVariables(this.environmentVariables) }, { omitEmptyArray: true }),
       pullRequestEnvironmentName: props.pullRequestEnvironmentName,
-      stage: props.stage,
       enablePerformanceMode: props.performanceMode,
+      stage: props.production ? 'PRODUCTION' : undefined,
     });
 
     this.arn = branch.attrArn;

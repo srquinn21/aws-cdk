@@ -233,7 +233,6 @@ export class App extends Resource implements IApp, iam.IGrantable {
         environmentVariables: Lazy.any({ produce: () => renderEnvironmentVariables(this.autoBranchEnvironmentVariables ) }, { omitEmptyArray: true }), // eslint-disable-line max-len
         enablePullRequestPreview: props.autoBranchCreation.pullRequestPreview ?? true,
         pullRequestEnvironmentName: props.autoBranchCreation.pullRequestEnvironmentName,
-        stage: props.autoBranchCreation.stage,
       },
       enableBranchAutoDeletion: props.autoBranchDeletion,
       basicAuthConfig: props.basicAuth
@@ -365,13 +364,6 @@ export interface AutoBranchCreation {
    * @default - automatically provision a temporary backend
    */
   readonly pullRequestEnvironmentName?: string;
-
-  /**
-   * Stage for the auto created branch
-   *
-   * @default - no stage
-   */
-  readonly stage?: string;
 }
 
 /**
